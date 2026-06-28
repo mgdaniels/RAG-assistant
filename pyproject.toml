@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-assistant"
+version = "0.1.0"
+description = "A small RAG tool that answers questions over a document set via embedding-based search and an LLM API."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "chromadb>=0.5",            # vector store (persistence + metadata + ANN index)
+    "sentence-transformers>=3.0",  # local embedding model (all-MiniLM-L6-v2)
+    "numpy>=1.24",             # vector normalisation
+    "openai>=1.40",            # OpenAI-compatible client (Gemini / Ollama / etc.)
+    "python-dotenv>=1.0",      # load configuration from a local .env file
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+ui = ["gradio>=4.0"]            # stretch goal: simple web UI
+
+[project.scripts]
+rag = "ragassistant.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
